@@ -1,0 +1,55 @@
+#AnchorPane{
+    -fx-background-image: url("heartbeatRegisterBackGround.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 1158px 700px;
+}
+
+#container{
+    -fx-background-color: WHITE;
+    -fx-border-width: 3;
+    -fx-border-radius: 30 30 30 30;
+    -fx-background-radius: 30 30 30 30;
+    /*-fx-border-color: blue;*/
+}
+
+#loginPageButton{
+    -fx-background-color: #ff7b68;
+}
+
+#loginPageButton:hover{
+    -fx-scale-x: 1.1;
+    -fx-background-color: #ff2000;
+}
+
+#loginPageButton:pressed{
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
+}
+
+#registerButton{
+    -fx-background-color: #ff7b68;
+}
+
+#registerButton:hover{
+    -fx-scale-x: 1.1;
+    -fx-background-color: #ff2000;
+}
+
+#registerButton:pressed{
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
+}
+
+.button{
+    -fx-background-color: #ff7b68;
+}
+
+.button:hover{
+    -fx-scale-x: 1.1;
+    -fx-background-color: #ff2000;
+}
+
+.button:pressed{
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
+}
