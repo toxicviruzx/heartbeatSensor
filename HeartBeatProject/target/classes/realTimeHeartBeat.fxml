@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.realTimeViewingController">
+   <stylesheets>
+      <URL value="@realTimeViewingDeco.css" />
+   </stylesheets>
+   <children>
+      <AnchorPane prefHeight="704.0" prefWidth="1142.0">
+         <children>
+            <Label layoutX="40.0" layoutY="24.0" text="First Name:" textFill="#eb4343">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="40.0" layoutY="48.0" text="Last Name:" textFill="#eb4343">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="197.0" layoutY="24.0" text="Resident ID:" textFill="#eb4343">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="197.0" layoutY="48.0" text="Gender:" textFill="#eb4343">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="365.0" layoutY="24.0" text="Status:" textFill="#eb4343">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <LineChart layoutX="40.0" layoutY="105.0" prefHeight="508.0" prefWidth="812.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <Button fx:id="viewRealTimeButton" layoutX="923.0" layoutY="505.0" mnemonicParsing="false" onAction="#handleViewRealTimeButton" prefHeight="36.0" prefWidth="158.0" text="View Real-time status" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="backButton" layoutX="970.0" layoutY="619.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="29.0" prefWidth="69.0" text="Back" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button layoutX="923.0" layoutY="559.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="158.0" text="View previous day" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="alarmingButton" onAction="#handleAlarmingButton" layoutX="953.0" layoutY="457.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="103.0" text="Alarming" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
+
+   </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

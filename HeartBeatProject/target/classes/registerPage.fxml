@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.RegisterPageController">
+    <stylesheets>
+        <URL value="@registerPageDeco.css" />
+    </stylesheets>
+    <children>
+        <AnchorPane fx:id="AnchorPane" prefHeight="704.0" prefWidth="1142.0">
+           <children>
+            <AnchorPane fx:id="container" layoutX="159.0" layoutY="14.0" prefHeight="644.0" prefWidth="824.0">
+               <children>
+                     <Label fx:id="labelUserName" layoutX="19.0" layoutY="234.0" prefHeight="25.0" prefWidth="104.0" text="User Name: " textFill="#d73e3e">
+                         <font>
+                             <Font name="System Bold Italic" size="12.0" />
+                         </font>
+                     </Label>
+                  <Label layoutX="19.0" layoutY="290.0" prefHeight="25.0" prefWidth="85.0" text="Password: " textFill="#d73e3e">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="18.0" layoutY="340.0" prefHeight="25.0" prefWidth="194.0" text="Confirm password: " textFill="#d73e3e">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="userName" layoutX="134.0" layoutY="234.0" prefHeight="25.0" prefWidth="275.0" promptText="Enter your user name here..." />
+                  <PasswordField fx:id="passwordField" layoutX="134.0" layoutY="290.0" prefHeight="25.0" prefWidth="275.0" promptText="Enter your password here..." />
+                  <PasswordField fx:id="confirmPasswordField" layoutX="134.0" layoutY="340.0" prefHeight="25.0" prefWidth="275.0" promptText="Confirm your password here..." />
+                     <ProgressIndicator fx:id="creatingIndicator" layoutX="378.0" layoutY="424.0" prefHeight="70.0" prefWidth="63.0" />
+                  <Button fx:id="registerButton" layoutX="356.0" layoutY="500.0" mnemonicParsing="false" onAction="#handleRegisterButton" prefHeight="39.0" prefWidth="115.0" text="Register" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="loginPageButton" layoutX="332.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleLoginPageButton" prefHeight="31.0" prefWidth="163.0" text="Back to Login Page" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="199.0" fitWidth="194.0" layoutX="316.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@register_now_button.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="confirmPasswordError" layoutX="138.0" layoutY="365.0" text="Confirmed password does not match" textFill="RED">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="creatingLabel" layoutX="383.0" layoutY="459.0" prefHeight="17.0" prefWidth="58.0" text="Creating..." textFill="RED">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="usernameError" layoutX="133.0" layoutY="257.0" text="This username was used by other account" textFill="RED">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="blankPasswordLabel" layoutX="134.0" layoutY="314.0" text="Fill in your password" textFill="RED">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="blankUsernameLabel" layoutX="134.0" layoutY="257.0" text="Fill in your username!" textFill="RED">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="successfulRegisterLabel" layoutX="315.0" layoutY="458.0" text="Success! You can log in now!" textFill="RED">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="437.0" layoutY="238.0" text="Resident ID:" textFill="#d73e3e">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="512.0" layoutY="234.0" prefHeight="25.0" prefWidth="275.0" promptText="Enter your resident id..." />
+                  <TextField layoutX="510.0" layoutY="290.0" prefHeight="20.0" prefWidth="76.0" />
+                  <Label layoutX="435.0" layoutY="294.0" text="First name:" textFill="#d73e3e">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="609.0" layoutY="294.0" text="Last name:" textFill="#d73e3e">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="683.0" layoutY="290.0" prefHeight="25.0" prefWidth="104.0" />
+                  <CheckBox fx:id="MaleCheckbox" layoutX="512.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleMaleCheckbox" text="Male" textFill="#d05252">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <Label layoutX="435.0" layoutY="344.0" text="Gender:" textFill="#d73e3e">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="FemaleCheckbox" layoutX="620.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleFemaleCheckbox" text="Female" textFill="#d05252">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <DatePicker fx:id="dateOfBirth" layoutX="318.0" layoutY="400.0" prefHeight="20.0" prefWidth="189.0" />
+                  <Label layoutX="228.0" layoutY="404.0" text="Date of birth:" textFill="#d73e3e">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="IDinformation" layoutX="520.0" layoutY="257.0" text="This id has been used" textFill="RED">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="technicalSupportButton" onAction="#handleTechnicalSupportButton" layoutX="362.0" layoutY="590.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="104.0" text="Technical support" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold Italic" size="10.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+
+                       </children>
+        </AnchorPane>
+    </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="CENTER" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginPage">
+    <stylesheets>
+        <URL value="@loginPageDeco.css" />
+    </stylesheets>
+    <children>
+     <AnchorPane fx:id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="704.0" prefWidth="1142.0">
+        <children>
+            <AnchorPane fx:id="container" layoutX="374.0" layoutY="22.0" prefHeight="632.0" prefWidth="392.0">
+               <children>
+                  <TextField fx:id="userNameField" layoutX="23.0" layoutY="255.0" prefHeight="43.0" prefWidth="346.0" promptText="User Name" />
+                  <PasswordField fx:id="passWordField" layoutX="23.0" layoutY="316.0" prefHeight="43.0" prefWidth="346.0" promptText="Password" />
+                  <Label fx:id="wrongPasswordLabel" layoutX="38.0" layoutY="415.0" text="Wrong password or this account does not exist!" textFill="RED">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               <Button fx:id="loginButton" layoutX="23.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleLoginPageButton" prefHeight="37.0" prefWidth="346.0" text="Login" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Button>
+                  <Label fx:id="blankUsernamePasswordLabel" layoutX="74.0" layoutY="415.0" text="Fill in your user name and password." textFill="RED">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <ProgressIndicator fx:id="loginIndicator" layoutX="148.0" layoutY="377.0" prefHeight="80.0" prefWidth="94.0" />
+                  <Label fx:id="loginLabel" layoutX="163.0" layoutY="408.0" prefHeight="17.0" prefWidth="83.0" text="Logging in..." textFill="RED">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="251.0" fitWidth="332.0" layoutX="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@ImageResources/medical-center.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="120.0" layoutY="536.0" prefHeight="20.0" prefWidth="102.0" text="Not a member?" textFill="#e12424">
+                     <font>
+                        <Font name="System Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Hyperlink fx:id="hyperLinkRegister" layoutX="213.0" layoutY="532.0" onAction="#handleHyperLinkRegister" text="Register" textFill="#f51d1d">
+                     <font>
+                        <Font name="System Italic" size="14.0" />
+                     </font>
+                  </Hyperlink>
+               </children>
+            </AnchorPane>
+        </children>
+     </AnchorPane>
+    </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>
