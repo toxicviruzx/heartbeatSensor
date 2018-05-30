@@ -1,39 +1,34 @@
 DROP DATABASE heartbeat;
-
 CREATE DATABASE heartbeat;
-
 USE heartbeat;
+DROP USER 'nodered'@'localhost';
+CREATE USER 'nodered'@'localhost'
+IDENTIFIED BY 'nodered';
+GRANT ALL PRIVILEGES ON heartbeat.* TO 'nodered'@'localhost';
 
-CREATE TABLE user
+CREATE TABLE account
 (
 	ID INT NOT NULL,
 	user VARCHAR(200) NOT NULL,
     password VARCHAR(200) NOT NULL,
-    firstname VARCHAR(16),
+    firstname VARCHAR(20) NOT NULL,
     familyname VARCHAR(20) NOT NULL,
-    gender VARCHAR(10),
-    date VARCHAR(20) NOT NULL,
-    type VARCHAR(15) NOT NULL,
-    CONSTRAINT pk_user PRIMARY KEY (ID)
+    gender VARCHAR(10) NOT NULL,
+    dateofbirth date NOT NULL,
+	note VARCHAR(256),
+	status BOOLEAN BY DEFAULT FALSE,
+    type VARCHAR BY DEFAULT p,
+    CONSTRAINT pk_account PRIMARY KEY (ID)
 );
-
-CREATE TABLE address
-(
-	ID INT NOT NULL,
-	postalcode VARCHAR(10) NOT NULL,
-    streetname VARCHAR(40) NOT NULL,
-	housenr INT NOT NULL,
-    cityname VARCHAR(40) NOT NULL,
-    CONSTRAINT pk_address PRIMARY KEY (postalcode),
-    CONSTRAINT fk_user FOREIGN KEY (ID) REFERENCES client (ID)
-);
+ENGINE = MyISAM DEFAULT charset = utf8
+COLLATE = utf8_unicode_ci;
 
 CREATE TABLE data
 (
     ID INT NOT NULL,
-	BPM FLOAT NOT NULL,
+	BPM INT NOT NULL,
     timestamp VARCHAR(20) NOT NULL,
-    CONSTRAINT fk_user FOREIGN KEY (ID) REFERENCES client (ID)
+    CONSTRAINT fk_account FOREIGN KEY (ID) REFERENCES account(ID)
 );
-SHOW TABLES;    
+
     
