@@ -93,6 +93,7 @@ public class ControllerLoginPage implements Initializable, ControlledScreen {
                 String userType = account.getUserType(idNumber);
                 if(userType.matches("d")){
                     try {
+                        account.updateOnlineStatus(true,idNumber);
                         //first check the type of the account
                         //login by updating the status field from offline to online
 //                    File file = new File("D:\\Studying\\Java\\HeartBeatProject_DocterSide\\src\\main\\resources\\heart-beat-icon.png");
@@ -130,6 +131,8 @@ public class ControllerLoginPage implements Initializable, ControlledScreen {
                     }
                 } else if(userType.matches("p")){
                     try {
+//                        System.out.println("Updating status doctor");
+                        account.updateOnlineStatus(true,idNumber);
                         //first check the type of the account
                         //login by updating the status field from offline to online
 //                    File file = new File("D:\\Studying\\Java\\HeartBeatProject_DocterSide\\src\\main\\resources\\heart-beat-icon.png");

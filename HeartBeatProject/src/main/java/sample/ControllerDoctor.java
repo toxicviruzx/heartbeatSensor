@@ -144,6 +144,7 @@ public class ControllerDoctor implements Initializable, ControlledScreen{
             //log-out via update the status field in the database: online to be offline
             //performing the scene movement
             try {
+                account.updateOnlineStatus(false,id);
 //                File file = new File("D:\\Studying\\Java\\HeartBeatProject_DocterSide\\src\\main\\resources\\heart-beat-icon.png");
 //                Image image = new Image(file.toURI().toString());
                 TrayNotification tray = new TrayNotification();

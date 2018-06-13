@@ -11,6 +11,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -23,6 +24,10 @@ import java.util.ResourceBundle;
 public class realTimeViewingController implements Initializable {
     private boolean isOnline;
     private String id;
+    private String firstNameLabel;
+    private String lastNameLabel;
+    private String genderLabel;
+    private String status;
 
     @FXML
     Button viewRealTimeButton;
@@ -34,13 +39,55 @@ public class realTimeViewingController implements Initializable {
     Button alarmingButton;
 
     @FXML
+    Label firstName;
+
+    @FXML
+    Label lastName;
+
+    @FXML
+    Label onlineStatus;
+
+    @FXML
+    Label gender;
+
+    @FXML
+    Label residentId;
+
+    @FXML
     LineChart <Integer,Integer> lineChart;
 
+    public void getID(String id){
+        this.id = id;
 
+        DBmanager db = DBmanager.getInstance();
+        AccountJDBC account = AccountJDBC.getInstance(db);
+
+        residentId.setText(this.id);
+        firstName.setText(account.getFirstName(this.id));
+        lastName.setText(account.getLastName(this.id));
+        gender.setText(account.getGender(this.id));
+        String onlineStatusString = account.getOnlineStatus(this.id);
+        if(onlineStatusString.matches("0")){
+            onlineStatus.setText("Offline");
+        } else {
+            onlineStatus.setText("Online");
+        }
+    }
 
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("real time scene");
-        isOnline = false;
+        DBmanager db = DBmanager.getInstance();
+        AccountJDBC account = AccountJDBC.getInstance(db);
+
+        System.out.println("Hello this is the real time scene");
+
+
+
+
+
+//        System.out.println("real time scene");
+//        isOnline = false;
+
+//        System.out.println(account.getFirstName(this.id));
 
         //pseudo code:
         //query all the previous day data to form a line chart
@@ -64,17 +111,14 @@ public class realTimeViewingController implements Initializable {
         }
     }
 
-    public void getID(String id){
-        this.id = id;
-        System.out.println("Get id " + this.id);
-    }
+
 
     public void handleBackButton(ActionEvent event){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/DoctorPage.fxml"));
             Parent root = (Parent) loader.load();
             ControllerDoctor secController = loader.getController();
-            secController.myFunction("hello");
+//            secController.myFunction("hello");
             Stage stage2 = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage2.hide();
 

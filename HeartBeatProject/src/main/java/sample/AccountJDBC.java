@@ -1,9 +1,6 @@
 package sample;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -137,14 +134,34 @@ public class AccountJDBC {
 
     public void updateOnlineStatus(Boolean onlineStatus, String id){
         PreparedStatement preparedStatement = null;
+        Statement statement = null;
+//        try {
+//            String sql = "update account set status=1 where id='879367989'";
+//            statement = connection.createStatement();
+//            int rowsAffected = statement.executeUpdate(sql);
+//            System.out.println("Rows affected: " + rowsAffected);
+//            System.out.println("Update complete.");
+//        } catch (SQLException se) {
+//            se.printStackTrace();
+//        } finally {
+//            try {
+//                if (preparedStatement != null)
+//                    preparedStatement.close();
+//            } catch (SQLException se) {
+//                se.printStackTrace();
+//            }
+//        }
+////
         try {
-            preparedStatement = connection.prepareStatement("UPDATE account SET status = (?) WHERE ID = (?)");
+            preparedStatement = connection.prepareStatement("UPDATE account SET status = ? WHERE ID = ?");
+            statement = connection.createStatement();
             if(onlineStatus == true){
                 preparedStatement.setString(1,"1");
             } else {
                 preparedStatement.setString(1,"0");
             }
             preparedStatement.setString(2,id);
+//            preparedStatement.execute();
             preparedStatement.executeUpdate();
         } catch (SQLException se) {
             se.printStackTrace();

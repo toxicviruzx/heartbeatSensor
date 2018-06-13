@@ -66,6 +66,9 @@ public class ControllerPatientView implements Initializable {
     }
 
     public void handleLogoutButton(ActionEvent event){
+        DBmanager db = DBmanager.getInstance();
+        AccountJDBC account = AccountJDBC.getInstance(db);
+        account.updateOnlineStatus(false,this.id);
         try {
 //                File file = new File("D:\\Studying\\Java\\HeartBeatProject_DocterSide\\src\\main\\resources\\heart-beat-icon.png");
 //                Image image = new Image(file.toURI().toString());
