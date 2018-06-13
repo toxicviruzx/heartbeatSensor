@@ -19,6 +19,11 @@
    <children>
       <AnchorPane prefHeight="704.0" prefWidth="1142.0">
          <children>
+            <Label fx:id="onlineStatus" layoutX="428.0" layoutY="24.0" prefHeight="17.0" prefWidth="90.0" textFill="#ff5151" />
+            <Label fx:id="gender" layoutX="252.0" layoutY="48.0" prefHeight="17.0" prefWidth="113.0" textFill="#ff5151" />
+            <Label fx:id="residentId" layoutX="274.0" layoutY="24.0" prefHeight="17.0" prefWidth="69.0" textFill="#ff5151" />
+            <Label fx:id="lastName" layoutX="108.0" layoutY="48.0" prefHeight="17.0" prefWidth="76.0" textFill="#ff5151" />
+            <Label fx:id="firstName" layoutX="108.0" layoutY="24.0" prefHeight="17.0" prefWidth="76.0" textFill="#ff5151" />
             <Label layoutX="40.0" layoutY="24.0" text="First Name:" textFill="#eb4343">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -39,12 +44,12 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="365.0" layoutY="24.0" text="Status:" textFill="#eb4343">
+            <Label layoutX="382.0" layoutY="24.0" text="Status:" textFill="#eb4343">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <LineChart layoutX="40.0" layoutY="105.0" prefHeight="508.0" prefWidth="812.0">
+            <LineChart fx:id="lineChart" layoutX="40.0" layoutY="105.0" prefHeight="508.0" prefWidth="812.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -67,7 +72,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="alarmingButton" onAction="#handleAlarmingButton" layoutX="953.0" layoutY="457.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="103.0" text="Alarming" textFill="WHITE">
+            <Button fx:id="alarmingButton" layoutX="953.0" layoutY="457.0" mnemonicParsing="false" onAction="#handleAlarmingButton" prefHeight="29.0" prefWidth="103.0" text="Alarming" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

@@ -22,6 +22,10 @@ import java.util.ResourceBundle;
  */
 public class RegisterPageController implements ControlledScreen, Initializable{
     ScreensController myController;
+
+    DBmanager db;
+    AccountJDBC account;
+
     private boolean isRestering = false;
     private FadeTransition fadeIn = new FadeTransition(
             Duration.millis(1900)
@@ -36,11 +40,25 @@ public class RegisterPageController implements ControlledScreen, Initializable{
             Duration.millis(1900)
     );
     private FadeTransition fadeInSuccessfulRegister = new FadeTransition(
-            Duration.millis(9000)
+            Duration.millis(1900)
     );
     private FadeTransition fadeInIDInformation = new FadeTransition(
-            Duration.millis(9000)
+            Duration.millis(1900)
     );
+    private FadeTransition fadeInFirstName = new FadeTransition(
+            Duration.millis(1900)
+    );
+    private FadeTransition fadeInLastName = new FadeTransition(
+            Duration.millis(1900)
+    );
+    private FadeTransition fadeInGender = new FadeTransition(
+            Duration.millis(1900)
+    );
+    private FadeTransition fadeInDateOfBirth = new FadeTransition(
+            Duration.millis(1900)
+    );
+
+    private boolean isLogin = false;
 
     @FXML
     public Button loginPageButton;
@@ -53,6 +71,15 @@ public class RegisterPageController implements ControlledScreen, Initializable{
 
     @FXML
     public TextField userName;
+
+    @FXML
+    public TextField idNumber;
+
+    @FXML
+    public TextField firstName;
+
+    @FXML
+    public TextField lastName;
 
     @FXML
     public PasswordField passwordField;
@@ -85,7 +112,19 @@ public class RegisterPageController implements ControlledScreen, Initializable{
     public DatePicker dateOfBirth;
 
     @FXML
-    public Label IDinformation;
+    public Label IDinformationLabel;
+
+    @FXML
+    public Label firstNameRemind;
+
+    @FXML
+    public Label lastNameRemind;
+
+    @FXML
+    public Label genderRemind;
+
+    @FXML
+    public Label dateOfBirthRemind;
 
     @FXML
     public CheckBox MaleCheckbox;
@@ -93,11 +132,16 @@ public class RegisterPageController implements ControlledScreen, Initializable{
     @FXML
     public CheckBox FemaleCheckbox;
 
+
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("Hello this is the register scene");
+        db = DBmanager.getInstance();
+        account = AccountJDBC.getInstance(db);
+
         fadeInUserAccount.setNode(usernameError);
         usernameError.setVisible(false);
         fadeInUserAccount.setAutoReverse(false);
@@ -123,10 +167,30 @@ public class RegisterPageController implements ControlledScreen, Initializable{
         fadeInSuccessfulRegister.setAutoReverse(false);
         fadeInSuccessfulRegister.setCycleCount(1);
 
-        fadeInIDInformation.setNode(IDinformation);
-        IDinformation.setVisible(false);
+        fadeInIDInformation.setNode(IDinformationLabel);
+        IDinformationLabel.setVisible(false);
         fadeInIDInformation.setAutoReverse(false);
         fadeInIDInformation.setCycleCount(1);
+
+        fadeInFirstName.setNode(firstNameRemind);
+        firstNameRemind.setVisible(false);
+        fadeInFirstName.setAutoReverse(false);
+        fadeInFirstName.setCycleCount(1);
+
+        fadeInLastName.setNode(lastNameRemind);
+        lastNameRemind.setVisible(false);
+        fadeInLastName.setAutoReverse(false);
+        fadeInLastName.setCycleCount(1);
+
+        fadeInGender.setNode(genderRemind);
+        genderRemind.setVisible(false);
+        fadeInGender.setAutoReverse(false);
+        fadeInGender.setCycleCount(1);
+
+        fadeInDateOfBirth.setNode(dateOfBirthRemind);
+        dateOfBirthRemind.setVisible(false);
+        fadeInDateOfBirth.setAutoReverse(false);
+        fadeInDateOfBirth.setCycleCount(1);
 
         creatingIndicator.setVisible(false);
         creatingLabel.setVisible(false);
@@ -181,7 +245,6 @@ public class RegisterPageController implements ControlledScreen, Initializable{
     }
 
     public void handleRegisterButton() {
-        System.out.println(dateOfBirth.getValue());
         if(!isRestering){
             if(userName.getText().matches("") ){
                 blankUsernameLabel.setText("Fill in your user name!");
@@ -224,36 +287,87 @@ public class RegisterPageController implements ControlledScreen, Initializable{
                 fadeIn.setFromValue(1.0);
                 fadeIn.setToValue(0.0);
                 fadeIn.play();
+            } else if(idNumber.getText().matches("")){
+                IDinformationLabel.setText("Fill in your resident ID");
+                IDinformationLabel.setVisible(true);
+                fadeInIDInformation.setFromValue(3.0);
+                fadeInIDInformation.setToValue(0.0);
+                fadeInIDInformation.play();
+            } else if(firstName.getText().matches("")){
+                firstNameRemind.setVisible(true);
+                fadeInFirstName.setFromValue(3.0);
+                fadeInFirstName.setToValue(0.0);
+                fadeInFirstName.play();
+            } else if(lastName.getText().matches("")){
+                lastNameRemind.setVisible(true);
+                fadeInLastName.setFromValue(3.0);
+                fadeInLastName.setToValue(0.0);
+                fadeInLastName.play();
+            } else if(!MaleCheckbox.isSelected()&&!FemaleCheckbox.isSelected()){
+                genderRemind.setVisible(true);
+                fadeInGender.setFromValue(3.0);
+                fadeInGender.setToValue(0.0);
+                fadeInGender.play();
+            } else if(dateOfBirth.getValue() == null){
+                dateOfBirthRemind.setVisible(true);
+                fadeInDateOfBirth.setFromValue(3.0);
+                fadeInDateOfBirth.setToValue(0.0);
+                fadeInDateOfBirth.play();
+            } else if(idNumber.getText().length() > 12){
+                IDinformationLabel.setText("This ID is too long");
+                IDinformationLabel.setVisible(true);
+                fadeInIDInformation.setFromValue(3.0);
+                fadeInIDInformation.setToValue(0.0);
+                fadeInIDInformation.play();
             } else {
-//                DBmanager db = DBmanager.getInstance();
-//                AccountJDBC account = AccountJDBC.getInstance(db);
-//                String username = userName.getText();
-//                if(!account.getUserName(username)){
-//                    isRestering = true;
-//                    account.createAccount(userName.getText().toLowerCase(), passwordField.getText());
-//                    Thread creating = new Thread(() -> {
-//                        creatingIndicator.setVisible(true);
-//                        creatingLabel.setVisible(true);
-//                        try {
-//                            Thread.sleep(7000);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-//                        creatingIndicator.setVisible(false);
-//                        creatingLabel.setVisible(false);
-//                        successfulRegisterLabel.setVisible(true);
-//                        fadeInSuccessfulRegister.setFromValue(1.0);
-//                        fadeInSuccessfulRegister.setToValue(0.0);
-//                        fadeInSuccessfulRegister.play();
-//                        isRestering = false;
-//                    });
-//                    creating.start();
-//                } else {
-//                    usernameError.setVisible(true);
-//                    fadeInUserAccount.setFromValue(3.0);
-//                    fadeInUserAccount.setToValue(0.0);
-//                    fadeInUserAccount.play();
-//                }
+                DBmanager db = DBmanager.getInstance();
+                AccountJDBC account = AccountJDBC.getInstance(db);
+                String username = userName.getText();
+                if(!account.getUserName(username)){
+                    isRestering = true;
+                    String gender;
+                    if(MaleCheckbox.isSelected()&&(!FemaleCheckbox.isSelected())){
+                        gender = "Male";
+                    } else {
+                        gender = "Female";
+                    }
+                    if(!account.getIdNumber(idNumber.getText())){
+                        account.createAccount(idNumber.getText().toLowerCase(), userName.getText().toLowerCase(), passwordField.getText(), firstName.getText(), lastName.getText(), gender, dateOfBirth.getValue().toString());
+                        Thread creating = new Thread(() -> {
+                            registerButton.setDisable(true);
+                            loginPageButton.setDisable(true);
+                            creatingIndicator.setVisible(true);
+                            creatingLabel.setVisible(true);
+                            try {
+                                Thread.sleep(7000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            creatingIndicator.setVisible(false);
+                            creatingLabel.setVisible(false);
+                            successfulRegisterLabel.setVisible(true);
+                            fadeInSuccessfulRegister.setFromValue(1.0);
+                            fadeInSuccessfulRegister.setToValue(0.0);
+                            fadeInSuccessfulRegister.play();
+                            isRestering = false;
+                            registerButton.setDisable(false);
+                            loginPageButton.setDisable(false);
+                        });
+                        creating.start();
+                    } else {
+                        IDinformationLabel.setText("This id has been used by other user");
+                        IDinformationLabel.setVisible(true);
+                        fadeInIDInformation.setFromValue(3.0);
+                        fadeInIDInformation.setToValue(0.0);
+                        fadeInIDInformation.play();
+                    }
+
+                } else {
+                    usernameError.setVisible(true);
+                    fadeInUserAccount.setFromValue(3.0);
+                    fadeInUserAccount.setToValue(0.0);
+                    fadeInUserAccount.play();
+                }
             }
         }
     }

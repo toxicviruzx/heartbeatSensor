@@ -27,14 +27,14 @@
                         <Font name="System Bold" size="28.0" />
                      </font>
                   </Label>
-                  <TableView layoutX="65.0" layoutY="79.0" prefHeight="388.0" prefWidth="766.0">
+                  <TableView fx:id="table" onMouseClicked="#userClickedOnTable" layoutX="65.0" layoutY="79.0" prefHeight="388.0" prefWidth="766.0">
                     <columns>
-                      <TableColumn prefWidth="129.00003051757812" text="ID" />
-                      <TableColumn prefWidth="119.18185424804688" text="First Name" />
-                        <TableColumn prefWidth="127.81816101074219" text="Last Name" />
-                        <TableColumn prefWidth="105.0" text="Gender" />
-                        <TableColumn prefWidth="125.18191528320312" text="Date of birth" />
-                        <TableColumn prefWidth="156.81817626953125" text="Note" />
+                      <TableColumn fx:id="idColumn" prefWidth="129.00003051757812" text="ID" />
+                      <TableColumn fx:id="firstNameColumn" prefWidth="119.18185424804688" text="First Name" />
+                        <TableColumn fx:id="lastNameColumn" prefWidth="127.81816101074219" text="Last Name" />
+                        <TableColumn fx:id="genderColumn" prefWidth="105.0" text="Gender" />
+                        <TableColumn fx:id="dateOfBirthColumn" prefWidth="125.18191528320312" text="Date of birth" />
+                        <TableColumn fx:id="noteColumn" prefWidth="156.81817626953125" text="Note" />
                     </columns>
                   </TableView>
                   <TextField fx:id="searchForPatient" layoutX="321.0" layoutY="486.0" prefHeight="25.0" prefWidth="254.0" promptText="Enter name or ID or Date of birth...">

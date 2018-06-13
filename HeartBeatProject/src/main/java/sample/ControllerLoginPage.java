@@ -33,8 +33,8 @@ import java.util.ResourceBundle;
 public class ControllerLoginPage implements Initializable, ControlledScreen {
     ScreensController myController;
     private boolean isLogin = false;
-//    DBmanager db;
-//    AccountJDBC account;
+    DBmanager db;
+    AccountJDBC account;
     private FadeTransition fadeIn = new FadeTransition(
             Duration.millis(1900)
     );
@@ -79,46 +79,111 @@ public class ControllerLoginPage implements Initializable, ControlledScreen {
     public void handleLoginPageButton(ActionEvent event) {
         if(!isLogin){
             if(userNameField.getText().matches("") || passWordField.getText().matches("")){
+                System.out.println("1");
                 blankUsernamePasswordLabel.setVisible(true);
                 fadeInBlankUsernamePassword.setFromValue(1.0);
                 fadeInBlankUsernamePassword.setToValue(0.0);
                 fadeInBlankUsernamePassword.play();
-            } else {
-                try {
-                    //login by updating the status field from offline to online
+            } else if(account.getPassword(userNameField.getText()) == null){
+                System.out.println("2");
+                System.out.println(userNameField.getText());
+                setWrongPasswordLabel("Wrong password or this account does not exist!");
+            } else if(account.getPassword(userNameField.getText().toLowerCase()).matches(passWordField.getText())) {
+                String idNumber = account.getIdByUserName(userNameField.getText().toLowerCase());
+                String userType = account.getUserType(idNumber);
+                if(userType.matches("d")){
+                    try {
+                        //first check the type of the account
+                        //login by updating the status field from offline to online
 //                    File file = new File("D:\\Studying\\Java\\HeartBeatProject_DocterSide\\src\\main\\resources\\heart-beat-icon.png");
 //                    Image image = new Image(file.toURI().toString());
-                    TrayNotification tray = new TrayNotification();
-                    tray.setNotificationType(NotificationType.CUSTOM);
-                    tray.setTitle("Login Success");
-                    tray.setMessage("Hello doctor! Welcome to the heartbeat monitor station"); //don't forget to get the name of doctor
+                        TrayNotification tray = new TrayNotification();
+                        tray.setNotificationType(NotificationType.CUSTOM);
+                        tray.setTitle("Login Success");
+                        tray.setMessage("Hello doctor " + account.getFirstName(idNumber) + " " + account.getLastName(idNumber) + "! Welcome to the heartbeat monitor station"); //don't forget to get the name of doctor
 //                    tray.setImage(image);
-                    tray.setAnimationType(AnimationType.FADE);
-                    tray.showAndDismiss(Duration.millis(1500));
-                    tray.setRectangleFill(Color.valueOf("#ff7b68"));
-                    Stage stage2 = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                    stage2.hide();
-                    //to hide the login page
+                        tray.setAnimationType(AnimationType.FADE);
+                        tray.showAndDismiss(Duration.millis(1500));
+                        tray.setRectangleFill(Color.valueOf("#ff7b68"));
+                        Stage stage2 = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                        stage2.hide();
+                        //to hide the login page
 
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/DoctorPage.fxml"));
-                    Parent root = (Parent) loader.load();
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/DoctorPage.fxml"));
+                        Parent root = (Parent) loader.load();
 
-                    ControllerDoctor secController = loader.getController();
-                    secController.myFunction("hello");
+                        ControllerDoctor secController = loader.getController();
+                        secController.getId(idNumber);
 
-                    Stage stage = new Stage();
-                    stage.initStyle(StageStyle.UTILITY);
-                    stage.setScene(new Scene(root, 1160, 710));
+                        Stage stage = new Stage();
+                        stage.initStyle(StageStyle.UTILITY);
+                        stage.setScene(new Scene(root, 1160, 710));
 //                    stage.setScene(new Scene(root));
-                    stage.setTitle("Heart Beat");
-                    stage.show();
-                    stage.setMinHeight(710);
-                    stage.setMinWidth(1160);
-                    stage.setMaxHeight(710);
-                    stage.setMaxWidth(1160);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        stage.setTitle("Heart Beat");
+                        stage.show();
+                        stage.setMinHeight(710);
+                        stage.setMinWidth(1160);
+                        stage.setMaxHeight(710);
+                        stage.setMaxWidth(1160);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if(userType.matches("p")){
+                    try {
+                        //first check the type of the account
+                        //login by updating the status field from offline to online
+//                    File file = new File("D:\\Studying\\Java\\HeartBeatProject_DocterSide\\src\\main\\resources\\heart-beat-icon.png");
+//                    Image image = new Image(file.toURI().toString());
+                        TrayNotification tray = new TrayNotification();
+                        tray.setNotificationType(NotificationType.CUSTOM);
+                        tray.setTitle("Login Success");
+                        tray.setMessage("Hello " + account.getFirstName(idNumber) + " " + account.getLastName(idNumber) + "! Welcome to the heartbeat monitor station"); //don't forget to get the name of doctor
+//                    tray.setImage(image);
+                        tray.setAnimationType(AnimationType.FADE);
+                        tray.showAndDismiss(Duration.millis(1500));
+                        tray.setRectangleFill(Color.valueOf("#ff7b68"));
+                        Stage stage2 = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                        stage2.hide();
+                        //to hide the login page
+
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/realTimeHeartBeatPatient.fxml"));
+                        Parent root = (Parent) loader.load();
+
+                        ControllerPatientView secController = loader.getController();
+                        secController.getId(idNumber);
+
+                        Stage stage = new Stage();
+                        stage.initStyle(StageStyle.UTILITY);
+                        stage.setScene(new Scene(root, 1160, 710));
+//                    stage.setScene(new Scene(root));
+                        stage.setTitle("Heart Beat");
+                        stage.show();
+                        stage.setMinHeight(710);
+                        stage.setMinWidth(1160);
+                        stage.setMaxHeight(710);
+                        stage.setMaxWidth(1160);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Thread thread = new Thread(() -> {
+                        isLogin = true;
+                        loginIndicator.setVisible(true);
+                        loginLabel.setVisible(true);
+                        loginButton.setDisable(true);
+                        try {
+                            Thread.sleep(3800);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        loginIndicator.setVisible(false);
+                        loginLabel.setVisible(false);
+                        loginButton.setDisable(false);
+                        isLogin = false;
+                    });
+                    thread.start();
                 }
+            } else {
+                setWrongPasswordLabel("Wrong password or this account does not exist!");
             }
         }
     }
@@ -128,10 +193,15 @@ public class ControllerLoginPage implements Initializable, ControlledScreen {
 //    }
 
     public void initialize(URL location, ResourceBundle resources) {
+        db = DBmanager.getInstance();
+        account = AccountJDBC.getInstance(db);
+
         fadeIn.setNode(wrongPasswordLabel);
         wrongPasswordLabel.setVisible(false);
         fadeIn.setAutoReverse(false);
         fadeIn.setCycleCount(1);
+
+        System.out.println("Hello this is the login scene");
 
         fadeInBlankUsernamePassword.setNode(blankUsernamePasswordLabel);
         blankUsernamePasswordLabel.setVisible(false);

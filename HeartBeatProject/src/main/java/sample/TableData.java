@@ -2,6 +2,7 @@ package sample;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
@@ -18,7 +19,7 @@ import javafx.beans.property.StringProperty;
  * @see SimpleIntegerProperty
  */
 public class TableData {
-    private final IntegerProperty id;
+    private final StringProperty id;
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final StringProperty gender;
@@ -36,16 +37,17 @@ public class TableData {
      * @param dateOfBirth
      * @param note
      */
-    public TableData(IntegerProperty id, StringProperty firstName, StringProperty lastName, StringProperty gender, StringProperty dateOfBirth, StringProperty note) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.dateOfBirth = dateOfBirth;
-        this.note = note;
+    public TableData(String id, String firstName, String lastName, String gender, String dateOfBirth, String note) {
+//        super();
+        this.id = new SimpleStringProperty(id);
+        this.firstName = new SimpleStringProperty(firstName);
+        this.lastName = new SimpleStringProperty(lastName);
+        this.gender = new SimpleStringProperty(gender);
+        this.dateOfBirth = new SimpleStringProperty(dateOfBirth);
+        this.note = new SimpleStringProperty(note);
     }
 
-    public int getID() {
+    public String getId() {
         return id.get();
     }
 
