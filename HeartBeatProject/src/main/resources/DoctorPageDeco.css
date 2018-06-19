@@ -19,7 +19,7 @@
 }
 
 #container{
-    -fx-background-color: WHITE;
+    -fx-background-color: #ffded1;
     -fx-border-width: 3;
     -fx-border-radius: 30 30 30 30;
     -fx-background-radius: 30 30 30 30;
@@ -40,11 +40,11 @@
 
 .table-view .column-header-background .label{
     -fx-background-color: #ff6a59;
-    -fx-text-fill: white;
+    -fx-text-fill: #ffded1;
 }
 
 .table-view .column-header {
-    -fx-background-color: white;
+    -fx-background-color: #ffded1;
 }
 
 .table-row-cell:selected {

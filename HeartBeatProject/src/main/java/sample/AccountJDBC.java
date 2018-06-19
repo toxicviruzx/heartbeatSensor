@@ -135,23 +135,6 @@ public class AccountJDBC {
     public void updateOnlineStatus(Boolean onlineStatus, String id){
         PreparedStatement preparedStatement = null;
         Statement statement = null;
-//        try {
-//            String sql = "update account set status=1 where id='879367989'";
-//            statement = connection.createStatement();
-//            int rowsAffected = statement.executeUpdate(sql);
-//            System.out.println("Rows affected: " + rowsAffected);
-//            System.out.println("Update complete.");
-//        } catch (SQLException se) {
-//            se.printStackTrace();
-//        } finally {
-//            try {
-//                if (preparedStatement != null)
-//                    preparedStatement.close();
-//            } catch (SQLException se) {
-//                se.printStackTrace();
-//            }
-//        }
-////
         try {
             preparedStatement = connection.prepareStatement("UPDATE account SET status = ? WHERE ID = ?");
             statement = connection.createStatement();
@@ -161,7 +144,28 @@ public class AccountJDBC {
                 preparedStatement.setString(1,"0");
             }
             preparedStatement.setString(2,id);
-//            preparedStatement.execute();
+            preparedStatement.executeUpdate();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+        finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
+
+    public void submitComment(String messagage, String id){
+        PreparedStatement preparedStatement = null;
+        Statement statement = null;
+        try {
+            preparedStatement = connection.prepareStatement("UPDATE account SET note = ? WHERE ID = ?");
+            statement = connection.createStatement();
+            preparedStatement.setString(1,messagage);
+            preparedStatement.setString(2,id);
             preparedStatement.executeUpdate();
         } catch (SQLException se) {
             se.printStackTrace();
@@ -425,9 +429,115 @@ public class AccountJDBC {
         return type;
     }
 
-//    public String queryRealTimebpm(String id){
-//        String queryResult;
-//
-//        return queryResult;
-//    }
+    public ArrayList getAllbpm(String id){
+        ArrayList bpm = new ArrayList();
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("SELECT BPM FROM data WHERE ID LIKE ?");
+            preparedStatement.setString(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                bpm.add(resultSet.getString("BPM"));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return bpm;
+    }
+
+    public ArrayList getAllTime(String id){
+        ArrayList time = new ArrayList();
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("SELECT time FROM data WHERE ID LIKE ?");
+            preparedStatement.setString(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                time.add(resultSet.getString("time"));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return time;
+    }
+
+    public String getLatestBpm(String id){
+        String bpm = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("SELECT BPM FROM data WHERE ID LIKE ? ORDER BY date DESC LIMIT 1");
+            preparedStatement.setString(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                bpm = resultSet.getString("BPM");
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+        finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return bpm;
+    }
+
+    public String getLatestTime(String id){
+        String time = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("SELECT time FROM data WHERE ID LIKE ? ORDER BY date DESC LIMIT 1");
+            preparedStatement.setString(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                time = resultSet.getString("time");
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+        finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return time;
+    }
+
+    public int getNumberOfBpm(String id){
+        ArrayList numberOfBpm = new ArrayList();
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("SELECT BPM FROM data WHERE ID LIKE ?");
+            preparedStatement.setString(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                numberOfBpm.add(resultSet.getString("BPM"));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return numberOfBpm.size();
+    }
+
+    public String getDoctorComment(String id){
+        String doctorComment = null;
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("SELECT note FROM account WHERE ID LIKE ?");
+            preparedStatement.setString(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                doctorComment = resultSet.getString("note");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return doctorComment;
+    }
 }

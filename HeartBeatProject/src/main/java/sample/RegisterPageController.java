@@ -313,8 +313,8 @@ public class RegisterPageController implements ControlledScreen, Initializable{
                 fadeInDateOfBirth.setFromValue(3.0);
                 fadeInDateOfBirth.setToValue(0.0);
                 fadeInDateOfBirth.play();
-            } else if(idNumber.getText().length() > 12){
-                IDinformationLabel.setText("This ID is too long");
+            } else if(idNumber.getText().length() > 4){
+                IDinformationLabel.setText("The maximum characters is 4");
                 IDinformationLabel.setVisible(true);
                 fadeInIDInformation.setFromValue(3.0);
                 fadeInIDInformation.setToValue(0.0);
