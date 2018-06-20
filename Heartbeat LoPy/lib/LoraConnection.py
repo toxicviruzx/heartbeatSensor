@@ -47,10 +47,6 @@ class LoraConnection:
     #The sendData method of our LoPy expects the values read from the main function.
     #Firstly, it will print the values with their respective units.
     #Next, we convert our values to integers for later purpose.
-    #We multiply temperature by 10, because we want 1 decimal float precision.
-    #Humidity is multiplied by 100 so we get 2 decimals.
-    #Whereas pressure is devided by 100, so we get a value between 9000 and 11000.
-    #Lightlevel will be kept untouched, because we round up a tuple value of 2 sensors.
     #After we cast our values, we use a build in function called pack from the struct library.
     #This function will pack our data in hexadecimal bytes.
     #At last, we send the packed data through the previously created socket, and flash a led green to show that data was sent.
@@ -58,13 +54,6 @@ class LoraConnection:
         print("------------------------------")
         print("ID: ", id)
         print("BPM:    ", bpm)
-        # print("TimeStamp:    ", pressure)
-
-
-        # self.temperature = int(float(temperature)*10)
-        # self.humidity = int(humidity)*100
-        # self.pressure = int(float(pressure)/100)
-
 
         data = struct.pack(">hhhh",int(id), int(bpm))
 
